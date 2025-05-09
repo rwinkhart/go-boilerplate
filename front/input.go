@@ -36,9 +36,9 @@ func InputBinary(prompt string) bool {
 	return false
 }
 
-// InputPositiveInt prompts the user for input and returns the input as an integer.
+// InputInt prompts the user for input and returns the input as an integer.
 // A negative min/max value will disable the respective limit.
-func InputPositiveInt(prompt string, min, max int) int {
+func InputInt(prompt string, min, max int) int {
 	for {
 		fmt.Print("\n" + prompt + " ")
 		var userInput int
@@ -54,5 +54,5 @@ func InputMenuGen(prompt string, options []string) int {
 	for i, option := range options {
 		fmt.Printf("%d. %s\n", i+1, option)
 	}
-	return InputPositiveInt(prompt, 1, len(options))
+	return InputInt(prompt, 1, len(options))
 }
