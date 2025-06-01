@@ -7,23 +7,21 @@ import (
 )
 
 // TargetIsFile checks if the targetLocation is a file, directory, or is inaccessible.
-// Requires: failCondition (0 = fail on inaccessible, 1 = fail on inaccessible&file, 2 = fail on inaccessible&directory).
+// Requires: targetLocation,
+// failOnDir (whether to return an error if targetLocation is a directory or a file).
 // Returns: isFile, isAccessible.
-func TargetIsFile(targetLocation string, errorOnFail bool, failCondition uint8) (bool, bool, error) {
+func TargetIsFile(targetLocation string, failOnDir bool) (bool, bool, error) {
 	targetInfo, err := os.Stat(targetLocation)
 	if err != nil {
-		if errorOnFail {
-			return false, false, errors.New("unable to access \"" + targetLocation + "\": " + err.Error())
-		}
-		return false, false, nil
+		return false, false, errors.New("unable to access \"" + targetLocation + "\": " + err.Error())
 	}
 	if targetInfo.IsDir() {
-		if errorOnFail && failCondition == 2 {
+		if failOnDir {
 			return false, true, errors.New("\"" + targetLocation + "\" is a directory")
 		}
 		return false, true, nil
 	} else {
-		if errorOnFail && failCondition == 1 {
+		if !failOnDir {
 			return true, true, errors.New("\"" + targetLocation + "\" is a file")
 		}
 		return true, true, nil
