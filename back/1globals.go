@@ -11,5 +11,5 @@ const (
 
 	ErrorRead           = 101
 	ErrorWrite          = 102
-	ErrorTargetNotFound = 105
+	ErrorTargetNotFound = 103
 )
