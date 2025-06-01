@@ -1,6 +1,7 @@
 package back
 
 import (
+	"errors"
 	"os"
 	"strings"
 )
@@ -8,34 +9,34 @@ import (
 // TargetIsFile checks if the targetLocation is a file, directory, or is inaccessible.
 // Requires: failCondition (0 = fail on inaccessible, 1 = fail on inaccessible&file, 2 = fail on inaccessible&directory).
 // Returns: isFile, isAccessible.
-func TargetIsFile(targetLocation string, errorOnFail bool, failCondition uint8) (bool, bool) {
+func TargetIsFile(targetLocation string, errorOnFail bool, failCondition uint8) (bool, bool, error) {
 	targetInfo, err := os.Stat(targetLocation)
 	if err != nil {
 		if errorOnFail {
-			PrintError("Failed to access \""+targetLocation+"\" - Ensure it exists and has the correct permissions", ErrorTargetNotFound, true)
+			return false, false, errors.New("unable to access \"" + targetLocation + "\": " + err.Error())
 		}
-		return false, false
+		return false, false, nil
 	}
 	if targetInfo.IsDir() {
 		if errorOnFail && failCondition == 2 {
-			PrintError("\""+targetLocation+"\" is a directory", ErrorTargetWrongType, true)
+			return false, true, errors.New("\"" + targetLocation + "\" is a directory")
 		}
-		return false, true
+		return false, true, nil
 	} else {
 		if errorOnFail && failCondition == 1 {
-			PrintError("\""+targetLocation+"\" is a file", ErrorTargetWrongType, true)
+			return true, true, errors.New("\"" + targetLocation + "\" is a file")
 		}
-		return true, true
+		return true, true, nil
 	}
 }
 
 // CreateTempFile creates a temporary file and returns a pointer to it.
-func CreateTempFile() *os.File {
+func CreateTempFile() (*os.File, error) {
 	tempFile, err := os.CreateTemp("", "*.markdown")
 	if err != nil {
-		PrintError("Failed to create temporary file: "+err.Error(), ErrorWrite, true)
+		return nil, errors.New("unable to create temporary file: " + err.Error())
 	}
-	return tempFile
+	return tempFile, nil
 }
 
 // ExpandPathWithHome, given a path (as a string) containing "~", returns the path with "~" expanded to the user's home directory.
