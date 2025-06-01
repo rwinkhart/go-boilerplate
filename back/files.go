@@ -39,7 +39,7 @@ func CreateTempFile() (*os.File, error) {
 	return tempFile, nil
 }
 
-// ExpandPathWithHome, given a path (as a string) containing "~", returns the path with "~" expanded to the user's home directory.
+// ExpandPathWithHome returns the given path with "~" expanded to the user's home directory.
 func ExpandPathWithHome(path string) string {
 	return strings.Replace(path, "~", Home, 1)
 }
