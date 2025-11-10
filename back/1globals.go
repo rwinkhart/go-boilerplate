@@ -5,9 +5,12 @@ import "os"
 var Home, _ = os.UserHomeDir()
 
 const (
-	AnsiBold  = "\033[1m"
-	AnsiError = "\033[38;5;9m"
-	AnsiReset = "\033[0m"
+	AnsiBold    = "\033[1m"
+	AnsiError   = "\033[38;5;9m"
+	AnsiWarning = "\033[38;5;3m"
+	AnsiBlue    = "\033[38;5;4m"
+	AnsiGreen   = "\033[38;5;2m"
+	AnsiReset   = "\033[0m"
 
 	ErrorRead           = 101
 	ErrorWrite          = 102
