@@ -1,7 +1,7 @@
 module github.com/rwinkhart/go-boilerplate
 
-go 1.24.3
+go 1.25.5
 
-require golang.org/x/term v0.32.0
+require golang.org/x/term v0.38.0
 
-require golang.org/x/sys v0.33.0 // indirect
+require golang.org/x/sys v0.39.0 // indirect
