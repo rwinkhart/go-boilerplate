@@ -46,6 +46,7 @@ func InputInt(prompt string, min, max int) int {
 		if err == nil && (userInput >= min || min < 0) && (userInput <= max || max < 0) {
 			return userInput
 		}
+		fmt.Println()
 	}
 }
 
