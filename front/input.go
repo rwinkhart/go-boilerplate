@@ -54,5 +54,5 @@ func InputMenuGen(prompt string, options []string) int {
 	for i, option := range options {
 		fmt.Printf("%d. %s\n", i+1, option)
 	}
-	return InputInt(prompt, 1, len(options))
+	return InputInt("\n"+prompt, 1, len(options))
 }
