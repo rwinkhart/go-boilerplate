@@ -9,7 +9,8 @@ import (
 	"strings"
 )
 
-// Input prompts the user for input and returns the input as a string.
+// Input prompts the user for input and
+// returns the input as a string.
 func Input(prompt string) string {
 	fmt.Print(prompt + " ")
 	reader := bufio.NewReader(os.Stdin)
@@ -17,7 +18,8 @@ func Input(prompt string) string {
 	return strings.TrimRight(userInput, "\n\r ") // remove trailing newlines, carriage returns, and spaces
 }
 
-// InputBinary prompts the user with a yes/no question and returns the response as a boolean.
+// InputBinary prompts the user with a yes/no
+// question and returns the response as a boolean.
 func InputBinary(prompt string) bool {
 	reader := bufio.NewReader(os.Stdin)
 	fmt.Print(prompt + " (y/N) ")

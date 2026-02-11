@@ -46,8 +46,10 @@ func pollForInput() bool {
 	return ret != 0 && numEvents > 0
 }
 
-// Input prompts the user for input and returns the input as a string.
-// Uses polling to be more responsive to interrupts on Windows.
+// Input prompts the user for input and
+// returns the input as a string.
+// Uses polling to be more responsive
+// to interrupts on Windows.
 func Input(prompt string) string {
 	fmt.Print(prompt + " ")
 
@@ -61,7 +63,8 @@ func Input(prompt string) string {
 	return strings.TrimRight(userInput, "\n\r ") // remove trailing newlines, carriage returns, and spaces
 }
 
-// InputBinary prompts the user with a yes/no question and returns the response as a boolean.
+// InputBinary prompts the user with a yes/no
+// question and returns the response as a boolean.
 // Uses polling to be more responsive to interrupts on Windows.
 func InputBinary(prompt string) bool {
 	fmt.Print(prompt + " (y/N) ")
