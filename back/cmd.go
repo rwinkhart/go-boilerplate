@@ -11,7 +11,7 @@ import (
 )
 
 // WriteToStdin is a utility function that writes a byte slice to a command's stdin.
-func WriteToStdinAndZeroizeInput(cmd *exec.Cmd, input []byte) error {
+func WriteToStdin(cmd *exec.Cmd, input []byte, zeroizeInput bool) error {
 	stdin, err := cmd.StdinPipe()
 	if err != nil {
 		return errors.New("unable to access stdin for system command: " + err.Error())
@@ -21,7 +21,9 @@ func WriteToStdinAndZeroizeInput(cmd *exec.Cmd, input []byte) error {
 			_ = stdin.Close() // error ignored; if stdin could be accessed, it can probably be closed
 		}(stdin)
 		_, _ = stdin.Write(input)
-		security.ZeroizeBytes(input)
+		if zeroizeInput {
+			security.ZeroizeBytes(input)
+		}
 	}()
 	return nil
 }
