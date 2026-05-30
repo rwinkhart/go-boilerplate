@@ -16,6 +16,15 @@ func Input(prompt string) string {
 	return strings.TrimRight(userInput, "\n\r ") // remove trailing newlines, carriage returns, and spaces
 }
 
+// Input prompts the user for input and
+// returns the input as a rune.
+func InputRune(prompt string) rune {
+	fmt.Print(prompt + " ")
+	reader := bufio.NewReader(os.Stdin)
+	userInput, _, _ := reader.ReadRune()
+	return userInput
+}
+
 // InputBinary prompts the user with a yes/no
 // question and returns the response as a boolean.
 func InputBinary(prompt string) bool {
